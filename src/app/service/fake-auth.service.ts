@@ -28,6 +28,16 @@ export class FakeAuthService {
     return false;
   }
 
+  register(email: string, senha: string): boolean {
+    // Verifica se já existe usuário com esse email
+    if (this.usuariosFake.some(user => user.email === email)) {
+      return false; // já existe, não registra
+    }
+    // Adiciona novo usuário
+    this.usuariosFake.push({ email, senha });
+    return true;
+  }
+
   logout() {
     this.usuarioLogado = null;
   }

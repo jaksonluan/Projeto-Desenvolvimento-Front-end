@@ -1,5 +1,5 @@
-import { Component, Input, signal, ViewEncapsulation } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, signal, ViewEncapsulation } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 // Angular Material
@@ -15,10 +15,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { merge } from 'rxjs';
 import { MatDividerModule } from '@angular/material/divider';
 import { AuthHelperService } from '../service/auth-helper.service';
+import { FakeAuthService } from '../service/fake-auth.service';
 
 @Component({
   imports: [
@@ -36,6 +35,7 @@ import { AuthHelperService } from '../service/auth-helper.service';
   ],
   selector: 'app-register',
   templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class RegisterComponent {
@@ -46,32 +46,58 @@ export class RegisterComponent {
   readonly confirmPassword = new FormControl('', [Validators.required]);
   readonly username = new FormControl('', [Validators.required]);
 
-  constructor(public authHelper: AuthHelperService) {
+  errorMessage = signal('');
+  hide = signal(true);
+
+  constructor(
+    public authHelper: AuthHelperService,
+    private fakeAuth: FakeAuthService,
+    private router: Router
+  ) {
     this.email.valueChanges.subscribe(() => {
       this.authHelper.updateErrorMessage(this.email);
     });
   }
-
-  errorMessage = signal('');
-
-  updateErrorMessage() {
-    this.authHelper.updateErrorMessage(this.email);
-  }
-
-  hide = signal(true);
 
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
 
-  login() {
-    console.log('Login clicked');
+  updateErrorMessage() {
+    this.authHelper.updateErrorMessage(this.email);
   }
 
   newUser() {
-    console.log('New user clicked');
-    // Here you would typically handle the registration logic, such as calling a service to create a new user.
-    // For now, we just log to the console.
+    if (
+      this.email.invalid ||
+      this.firstName.invalid ||
+      this.lastName.invalid ||
+      this.username.invalid ||
+      this.password.invalid ||
+      this.confirmPassword.invalid
+    ) {
+      this.errorMessage.set('Please fill in all fields correctly.');
+      return;
+    }
+
+    if (this.password.value !== this.confirmPassword.value) {
+      this.errorMessage.set('Passwords do not match.');
+      return;
+    }
+
+    const success = this.fakeAuth.register(this.email.value!, this.password.value!);
+
+    if (success) {
+      this.errorMessage.set('');
+      alert('Registration successful! You can now log in.');
+      this.router.navigate(['/login']);
+    } else {
+      this.errorMessage.set('User with this email already exists.');
+    }
+  }
+
+  login() {
+    console.log('Login clicked');
   }
 }

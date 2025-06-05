@@ -1,7 +1,7 @@
 <body>
-  <form class="container">
+  <form class="container" (ngSubmit)="newUser()">
     <h2 class="title">Register</h2>
-    <mat-form-field class="input-field">
+    <mat-form-field class="input-field" >
       <mat-label>Enter your first name</mat-label>
       <input
         matInput
@@ -96,9 +96,7 @@
     <mat-divider />
     <section>
       <div class="button-row">
-        <button class="btn" routerLink="/register" mat-raised-button (click)="newUser()">
-          Register
-        </button>
+        <button class="btn" mat-raised-button type="submit">Register</button>
       </div>
     </section>
     <mat-divider />
