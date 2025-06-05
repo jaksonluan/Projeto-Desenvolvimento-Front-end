@@ -1,1 +1,173 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+html {
+  color-scheme: light;
+  @include mat.theme((color: mat.$azure-palette,
+      typography: (
+      plain-family: Quicksand,
+      brand-family: Open Sans,
+      bold-weight: 900,
+      medium-weight: 500,
+      regular-weight: 300,
+    ),
+      density: 0,
+    ));
+
+  
+  
+}
+
+:root {
+  
+  @include mat.button-overrides((
+    filled-container-color: var(--mat-sys-primary),
+    filled-disabled-container-color: red,
+  ));
+
+  @include mat.form-field-overrides((
+    filled-container-color: var(--mat-sys-on-primary),
+    filled-disabled-container-color: var(--mat-sys-primary),
+    outlined-caret-color: var(--mat-sys-on-primary),
+  ));
+
+  --mat-sys-primary: #1B6FF1 ;
+  --mat-secondary: #03dac6;
+  --mat-error: #b00020;
+  --mat-sys-background: #F3F4F5;
+  --mat-surface: #ffffff;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-on-secondary: #1A1B1F;
+  --mat-sys-on-surface: #000000;
+  --mat-sys-on-error: #ffffff;
+
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// Global styles
+body {
+  background-color: var(--mat-background);
+  color: var(--mat-on-background);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--mat-sys-background);
+  color: var(--mat-sys-on-background);
+  font-family: Roboto, sans-serif;
+  align-items: center;
+  min-width: 100vw;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: auto;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 6px;
+  background-color: var(--mat-sys-surface);
+  max-width: 800px;
+  
+}
+
+
+.input-field {
+  width: 100%;
+  margin-bottom: 16px;
+  border: none;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  margin-bottom: 30px;
+}
+
+h1 {
+  color: var(--mat-sys-primary);
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  color: var(--mat-sys-on-primary);
+  font-size: 24px;
+  font-weight: bold;
+  margin: 30px;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+  color: var(--mat-sys-primary)
+}
+
+
+//Button styles
+.password-toggle-button {
+  background-color: transparent;
+  color: var(--mat-sys-on-surface);
+  border-radius: 6px;
+  margin: 6px;
+  cursor: pointer;
+  border: 0;
+}
+
+.button-row {
+  max-width: 600px;
+
+}
+
+.button-column {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+a {
+  color: var(--mat-sys-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.btn {
+  background-color: var(--mat-sys-primary) !important;
+  color: var(--mat-surface) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 6px !important;
+  width: 100%;
+}
+
+.mdc-text-field--filled {
+  border: 1px solid var(--mat-sys-outline);
+  border-radius: 4px !important;
+  border-bottom: none;
+}
+
+.password-toggle-button {
+  color: var(--mat-sys-outline);
+}
+
+

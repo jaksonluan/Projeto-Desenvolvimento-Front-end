@@ -1,0 +1,106 @@
+<body>
+  <form class="container">
+    <h2 class="title">Register</h2>
+    <mat-form-field class="input-field">
+      <mat-label>Enter your first name</mat-label>
+      <input
+        matInput
+        placeholder="ex: João"
+        [formControl]="firstName"
+        (blur)="updateErrorMessage()"
+        required
+      />
+      @if (firstName.invalid) {
+      <mat-error>{{ errorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="input-field">
+      <mat-label>Enter your last name</mat-label>
+      <input
+        matInput
+        placeholder="ex: da Silva"
+        [formControl]="lastName"
+        (blur)="updateErrorMessage()"
+        required
+      />
+      @if (firstName.invalid) {
+      <mat-error>{{ errorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="input-field" (ngSubmit)="login()">
+      <mat-label>Enter your email</mat-label>
+      <input
+        matInput
+        placeholder="pat@example.com"
+        [formControl]="email"
+        (blur)="updateErrorMessage()"
+        required
+      />
+      @if (email.invalid) {
+      <mat-error>{{ errorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="input-field" (ngSubmit)="login()">
+      <mat-label>Confirm your email</mat-label>
+      <input
+        matInput
+        placeholder="pat@example.com"
+        [formControl]="email"
+        (blur)="updateErrorMessage()"
+        required
+      />
+      @if (email.invalid) {
+      <mat-error>{{ errorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="input-field">
+      <mat-label>Enter your password</mat-label>
+      <input
+        matInput
+        [type]="hide() ? 'password' : 'text'"
+        [formControl]="password"
+      />
+      <button
+        type="button"
+        matIconButton
+        matSuffix
+        (click)="clickEvent($event)"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide()"
+        class="password-toggle-button"
+      >
+        <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class="input-field">
+      <mat-label>Confirm your password</mat-label>
+      <input
+        matInput
+        [type]="hide() ? 'password' : 'text'"
+        [formControl]="password"
+      />
+      <button
+        type="button"
+        matIconButton
+        matSuffix
+        (click)="clickEvent($event)"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide()"
+        class="password-toggle-button"
+      >
+        <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-divider />
+    <section>
+      <div class="button-row">
+        <button class="btn" routerLink="/register" mat-raised-button (click)="newUser()">
+          Register
+        </button>
+      </div>
+    </section>
+    <mat-divider />
+  </form>
+</body>
